@@ -1,0 +1,19 @@
+<template>
+
+    <div class="card_wrapper">
+        <template for:each={pickVals} for:item="item">
+            <div class="stagecontainer" key = {item} style={calcwidth}> 
+                <!-- ignore the above error -->
+                <h1 class="col_heading">{item}</h1>
+
+                <c-kanban-child-list records={records} stage={item} onlistitemdrag = {listItemDrag} onitemdrop = {listItemDrop} ></c-kanban-child-list>
+            </div>
+
+        </template>
+
+        
+    </div>
+
+    
+    
+</template>

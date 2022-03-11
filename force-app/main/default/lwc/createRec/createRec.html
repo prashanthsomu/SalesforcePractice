@@ -1,0 +1,13 @@
+<template>
+    <lightning-card variant="Narrow"  title="Record Create Form" icon-name="standard:account">
+        <div class="slds-m-horizontal_x-small">
+            <lightning-record-form
+                    object-api-name={objectName}
+                    fields={fields}
+                    onsuccess={handleSuccess}>
+        </lightning-record-form>
+
+        </div>
+        
+    </lightning-card>
+</template>

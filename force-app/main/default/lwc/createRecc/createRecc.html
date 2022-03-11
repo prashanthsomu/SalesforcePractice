@@ -1,0 +1,67 @@
+<!-- using input field - lightning record form -->
+
+<template>
+  <lightning-card title="Create Child Case">
+    <lightning-record-edit-form object-api-name="Child_Case__c">
+
+      <lightning-input-field
+        field-name="Parent_Case__c"  
+        value={recordId}
+        name="caseId"
+      ></lightning-input-field>
+
+      <lightning-input-field
+        field-name="Name"
+        onchange={onchanging}
+        name="childCaseName"
+      ></lightning-input-field>
+
+      <lightning-input-field
+        field-name="Case_severity__c"
+        onchange={onchanging}
+        name="caseSeverity"
+      ></lightning-input-field>
+
+      <lightning-input-field
+        field-name="description__c"
+        onchange={onchanging}
+        name="description"
+      ></lightning-input-field>
+
+      <lightning-input-field
+        field-name="Expected_Last_Date__c"
+        onchange={onchanging}
+        name="expectedDate"
+      ></lightning-input-field>
+
+      <lightning-input-field
+        field-name="Immediate_Action_Needed__c"
+        onchange={onchanging}
+        name="immediateAction"
+      ></lightning-input-field>
+      
+    </lightning-record-edit-form>
+    <div class="slds-m-horizontal_x-small">
+      <lightning-layout>
+        <lightning-layout-item flexibility="grow">
+          <lightning-button
+            label="Cancel"
+            variant="Neutral"
+            class="slds-m-left_x-small"
+            onclick={onCancel}
+          >
+          </lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item>
+          <lightning-button
+            label="Submit"
+            variant="brand"
+            class="slds-m-left_x-small"
+            onclick={onSubmit}
+          >
+          </lightning-button>
+        </lightning-layout-item>
+      </lightning-layout>
+    </div>
+  </lightning-card>
+</template>

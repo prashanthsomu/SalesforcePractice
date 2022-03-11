@@ -1,0 +1,39 @@
+<template>
+    <lightning-card  variant="Narrow"  title="Time-Date" icon-name="utility:date_time">
+
+        <lightning-layout class="slds-align_absolute-center slds-text-align_center" multiple-rows>
+
+                <lightning-layout-item >
+                <div class="time">
+                    {time}
+                </div>
+                </lightning-layout-item>
+
+                <lightning-layout-item>
+                    <div class="greeting">
+                        {greeting},Prashanth
+                    </div>
+                </lightning-layout-item>
+
+                <div class="head">
+                    <p>What is your Focus today ?</p>
+                </div>
+                
+                    <lightning-layout-item size="12" class="taskrow" >
+                        <div class="todoinput">
+                            <lightning-input type="text" variant="standard" name="Todo" label="" placeholder=" Add your Task here..."></lightning-input>
+                        </div>
+                        
+                        <lightning-button-icon variant="base" size="small" icon-name="utility:add" alternative-text="Add Task" onclick={addClick}></lightning-button-icon>
+                    </lightning-layout-item>
+                    
+                
+
+
+        
+        </lightning-layout>
+        
+    </lightning-card>
+    
+    
+</template>

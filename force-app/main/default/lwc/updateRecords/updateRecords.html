@@ -1,0 +1,18 @@
+<template>
+    <lightning-card  variant="Narrow"  title="Record Edit Form" icon-name="standard:account">
+        <div class="slds-m-horizontal_x-small">
+
+            <lightning-record-form
+                record-id={recordId}
+                object-api-name={objectName}
+                fields={fields}
+                mode="edit"
+                >
+            </lightning-record-form>
+
+
+        </div>
+        
+    </lightning-card>
+    
+</template>

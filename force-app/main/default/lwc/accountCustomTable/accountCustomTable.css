@@ -1,0 +1,17 @@
+.searchbar{
+    display: flex;
+    justify-content: flex-end;
+}
+ 
+.THIS lightning-combobox{
+    width: 30% !important;
+    margin-top: 20px;
+}
+
+.slds-table th, .slds-table td {
+
+    max-width: 30px !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+}
+

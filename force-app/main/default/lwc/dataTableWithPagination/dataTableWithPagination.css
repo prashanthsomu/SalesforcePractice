@@ -1,0 +1,8 @@
+.searchbar{
+    display: flex;
+    justify-content: flex-end;
+}
+ 
+lightning-input{
+    width: 20% !important;
+}

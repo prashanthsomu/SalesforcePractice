@@ -1,0 +1,22 @@
+<template>
+
+    <lightning-card  variant="Narrow"  title="Fetching datatable Items" icon-name="standard:account">
+
+          
+        <lightning-input type="text" variant="standard" name="TickerSymbol" label="Ticker Symbol" value={currentObject.TickerSymbol} editable = "true" data-field="TickerSymbol" onchange={handleChange}></lightning-input>
+        <lightning-input type="text" variant="standard" name="SLA" label="SLA" value={currentObject.sla} data-field="Sla" onchange={handleChange}></lightning-input>
+        <lightning-input type="text" variant="standard" name="SLASerialNumber" label="SLA Serial Number" value={currentObject.slaSerialNumber} data-field="SlaSerialNumber" onchange={handleChange}></lightning-input>
+        <lightning-input type="text" variant="standard" name="UpsellOpportunity" label="Upsell Opportunity" value={currentObject.UpsellOpportunity} data-field="UpsellOpportunity" onchange={handleChange}></lightning-input>
+
+        
+        <lightning-button
+                class="slds-m-top_small"
+                type="submit"
+                label="Submit"
+                variant="brand"
+                 onclick={updateAccount}
+            ></lightning-button>
+
+    </lightning-card>
+    
+</template>

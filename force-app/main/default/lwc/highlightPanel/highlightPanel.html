@@ -1,0 +1,262 @@
+<template>
+
+    <div class="panelcard">
+        
+    <lightning-card  class="cards" >  
+
+        <div class="header">
+
+            <div class="leftcont">
+                <lightning-icon icon-name="standard:case" alternative-text="Doc image" size="medium"></lightning-icon>
+                <p>Case</p>
+            </div>
+
+            <div class="rightcont">
+
+                <lightning-button variant="neutral" icon-name="utility:add" label="Follow" title="Follow" onclick={handleClick} slot="actions"></lightning-button>
+
+                <lightning-button-group class="slds-m-left_xx-small" >
+                    <lightning-button label="Edit" onclick={onEdit}></lightning-button>
+                    <lightning-button label="Delete" onclick={onDelete}></lightning-button>
+                    <lightning-button label="Clone" onclick={onClone} ></lightning-button>
+                </lightning-button-group>
+
+            </div>
+
+        </div>
+        
+    
+        
+    <div class="c-container">
+            <lightning-layout >
+
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <p class="field-title" title="Priority">Priority</p>
+                        <p class="values">{priority}</p>
+                    </div>
+                </lightning-layout-item>
+                
+                <lightning-layout-item padding="around-small" class="slds-m-left_xx-large">
+                    <div class="header-column">
+                        <p class="field-title" title="Status">Status</p>
+                        <p class="values">{status}</p>
+                    </div>
+                </lightning-layout-item>
+
+                <lightning-layout-item padding="around-small" class="slds-m-left_xx-large">
+                    <div class="header-column">
+                        <p class="field-title" title="Case Number"> Case Number</p>
+                        <p class="values">{caseNumber} </p>
+                    </div>
+                </lightning-layout-item>
+
+                <lightning-layout-item padding="around-small" class="slds-m-left_xx-large">
+                    <div class="header-column">
+                        <p class="field-title" title="Case Number"> Parent Account</p>
+                        <p class="values">{parentAccount} </p>
+                    </div>
+                </lightning-layout-item>
+
+                <lightning-layout-item padding="around-small" class="slds-m-left_xx-large">
+                    <div class="header-column">
+                        <p class="field-title" title="Case Number"> Parent Contact</p>
+                        <p class="values">{parentContact} </p>
+                    </div>
+                </lightning-layout-item>
+
+                <lightning-layout-item padding="around-small" class="slds-m-left_xx-large">
+                    <div class="header-column">
+                        <p class="field-title" title="Case Number"> Case Owner</p>
+                        <p class="values">{ownerName} </p>
+                    </div>
+                </lightning-layout-item>
+                
+            </lightning-layout>
+    </div>
+
+    
+        
+    </lightning-card>
+
+    </div>
+
+
+
+    <!--Delete-modal-popup -->
+
+    <template if:true={triggerDeleteModal}>
+        <!-- Modal/Popup Box LWC starts here -->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeDeleteModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Delete Case</h2>
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+                <div class="slds-modal__content slds-p-around_medium delete-modal-body" id="modal-content-id-1">
+                    <p>Are you sure you want to delete this case?</p>
+                </div>
+                <!-- Modal/Popup Box LWC footer starts here -->
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeDeleteModal} title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={deleteRecord} title="OK">Delete</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+
+    <!-- clone-modal-popup -->
+
+    <div class="clone-modal">
+
+        <template if:true={triggerCloneModal}>
+        <!-- Modal/Popup Box LWC starts here -->
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- Modal/Popup Box LWC header here -->
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeCloneModal}>
+                            <lightning-icon icon-name="utility:close"
+                                alternative-text="close"
+                                variant="inverse"
+                                size="small" ></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">New Case: example 1 record</h2>
+                    </header>
+                    <!-- Modal/Popup Box LWC body starts here -->
+                    <div class="slds-modal__content slds-p-around_medium edit-modal-body" id="modal-content-id-3">
+                        <lightning-record-edit-form  record-id={recordId}  object-api-name={objectApiName} 
+                            onsuccess={cloneSuccess}>
+                            <lightning-messages data-id="message"></lightning-messages>
+                                <div class="slds-grid slds-wrap">
+                                       <template if:true={recData}>
+                                            <template for:each={recDataKey} for:item="fields">
+                                                    <div key={fields.Id} class="slds-col slds-size_1-of-2">
+                                                        <lightning-input-field  class="slds-m-left_large slds-m-right_large edit-inputs" field-name={fields} onchange={cloneChangeHandler} name={fields}></lightning-input-field>
+                                                    </div>
+                                                </template>
+                                        </template>
+                                </div>
+                        </lightning-record-edit-form>
+                    </div>
+                    <!-- Modal/Popup Box LWC footer starts here -->
+                    <footer class="slds-modal__footer">
+                        <div class="footer-sec">
+
+                            <div class="footer-left">
+                                <lightning-checkbox-group 
+                                label=""
+                                options={options}
+                                value={value}
+                                onchange={checkboxSelection}></lightning-checkbox-group>
+                            </div>
+
+                            <div class="footer-right">
+
+                                <button class="slds-button slds-button_neutral" onclick={closeCloneModal} title="Cancel">Cancel</button>
+                                <button class="slds-button slds-button_neutral" onclick={SaveCloneModal} title="save-new">Save & New</button>
+                                <button class="slds-button slds-button_brand" onclick={cloneSuccess} title="Save">Save</button>
+
+                            </div>
+
+                        </div>
+
+                    
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+    </div>
+
+      
+</template>
+
+
+
+
+
+
+
+
+
+
+
+
+     <!-- Edit-modal-popup -->
+<!-- 
+    <div class="edit-modal"> 
+
+        <template if:true={triggerEditModal}> -->
+        <!-- Modal/Popup Box LWC starts here -->
+            <!-- <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container"> -->
+                    <!-- Modal/Popup Box LWC header here -->
+                    <!-- <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeEditModal}>
+                            <lightning-icon icon-name="utility:close"
+                                alternative-text="close"
+                                variant="inverse"
+                                size="small" ></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button> -->
+                        <!-- <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Edit {caseNumber}</h2>
+                    </header> -->
+                    <!-- Modal/Popup Box LWC body starts here -->
+                    <!-- <div class="slds-modal__content slds-p-around_medium edit-modal-body" id="modal-content-id-2">
+                        <lightning-record-edit-form record-id={recordId} object-api-name={objectApiName} 
+                            onsuccess={handleSuccess}>
+                            <lightning-messages data-id="message"></lightning-messages>
+                                <div class="slds-grid slds-wrap">
+                                        <template if:true={fieldSetArr}>
+                                            <template for:each={fieldSetArr} for:item="fields">
+                                                    <div key={fields.Id} class="slds-col slds-size_1-of-2">
+                                                        <lightning-input-field  class="slds-m-left_large slds-m-right_large edit-inputs" field-name={fields} onchange={changeHandler} name={fields}></lightning-input-field>
+                                                    </div>
+                                                </template>
+                                        </template>
+                                </div>
+                        </lightning-record-edit-form>
+                    </div> -->
+                    <!-- Modal/Popup Box LWC footer starts here -->
+                    <!-- <footer class="slds-modal__footer">
+                        <div class="footer-sec">
+
+                            <div class="footer-left">
+                                <lightning-checkbox-group 
+                                label=""
+                                options={options}
+                                value={value}
+                                onchange={checkboxSelection}></lightning-checkbox-group>
+                            </div>
+
+                            <div class="footer-right">
+
+                                <button class="slds-button slds-button_neutral" onclick={closeEditModal} title="Cancel">Cancel</button>
+                                <button class="slds-button slds-button_neutral" onclick={SaveEditModal} title="save-new">Save & New</button>
+                                <button class="slds-button slds-button_brand" onclick={handleSuccess} title="Save">Save</button>
+
+                            </div>
+
+                        </div>
+
+                    
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+    </div> -->

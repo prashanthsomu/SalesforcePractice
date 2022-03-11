@@ -1,0 +1,54 @@
+<!-- <template>
+    <lightning-card title="Data Form" icon-name="utility:open_folder">
+        <div class="content">
+
+             <div class="slds-p-around_medium lgc-bg">
+                     <lightning-input type="text" label="Accurance Input" ></lightning-input>
+            </div>
+
+        <lightning-button type = "reset " variant="brand" label="Find Accurance" title="Primary action" onclick={onsubmit} class="slds-m-left_x-small accurance_btn "></lightning-button>
+
+        <template if:true={warning}> 
+            <div class="warningClass">
+                <p>Enter some data</p>
+            </div>
+        </template>
+        <template if:false={warning}>
+             <div class="slds-m-vertical_medium">
+        <p class="sentence_line">The Accurance Number is  <span class="slds-text-heading_small">{clickedButtonLabel} </span></p>
+    </div>
+
+        </template>
+
+       
+        </div>
+        <! {clickedButtonLabel} {lengthOfWord} {output}-->
+       
+<!-- </lightning-card>
+</template>  -->
+
+<template>
+    <lightning-card title= "Data Form" icon-name="utility:open_folder">
+
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-input type="text" label="Accurance Of Text"></lightning-input>
+        </div>
+        <template if:true={errorMessage}>
+            <div class="slds-m-vertical_medium">
+               <p class="error_msg">Please enter some value</p> 
+            </div>
+        </template>
+        <lightning-button variant="brand" label="Submit" onclick={onSubmit} class="slds-m-left_x-small submit_btn">
+        </lightning-button>
+
+        <template if:true={ifAnswer}>
+            <div class="slds-p-around_medium lgc-bg">
+                <p class="slds-m-top_medium result_line">The Result : {solution}</p>
+            </div>
+        </template>
+
+
+
+    </lightning-card>
+
+</template>

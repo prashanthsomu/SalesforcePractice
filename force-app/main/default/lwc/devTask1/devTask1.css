@@ -1,0 +1,19 @@
+*{
+    box-sizing: border-box;
+}
+
+.submit_btn{
+    margin-left: 394px;
+}
+
+.error_msg {
+    margin-left: 16px;
+    color: red;
+    font-size: 15px;
+}
+
+.result_line{
+    color: blue;
+    font-size: 16px;
+    
+}

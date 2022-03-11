@@ -1,0 +1,24 @@
+.time{
+    font-size: 4rem;
+    color: brown;
+    text-align: center;
+    display: block;
+}
+
+.greeting{
+    font-size: 1rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+
+.head{
+    font-size: 2rem;
+}
+
+.todoinput{
+    width: 60% !important;
+}
+
+.taskrow{
+    display: flex !important;
+}

@@ -1,0 +1,60 @@
+<template >
+ <lightning-card>
+
+    <div class="slds-text-heading_medium slds-m-bottom_medium datatable-head">
+
+            <lightning-icon icon-name="standard:delegated_account" size="small"> </lightning-icon>
+            <p>Account Datatable </p>
+
+     </div>
+
+<!-- !Button Group-------------- -->
+
+<div class="basic-buttons">
+        <lightning-button-group> 
+
+                    <lightning-button label="Create" icon-name="utility:add" onclick={addAccount}></lightning-button>
+                    <lightning-button label="Delete"  icon-name="utility:delete" onclick={deleteAccount}></lightning-button>
+
+        </lightning-button-group>    
+</div>
+
+     <!-- ! DataTable ----------------------- --> 
+
+    <div style="height: 300px;">
+        <lightning-datatable
+                    key-field="Id"
+                    data={accounts.data} 
+                    columns={columns} 
+                    onsave={handleSave}
+                    draft-values={draftValues}
+                    onrowselection={selectedRow}
+                    >
+        </lightning-datatable>
+    </div>
+    
+</lightning-card>
+</template>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

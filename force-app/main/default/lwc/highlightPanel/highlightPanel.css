@@ -1,0 +1,91 @@
+
+
+/* lightning-card {
+    margin: 0 !important;
+    padding: 0 !important;
+} */
+
+
+/* 
+.cards > div{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important ;
+    background-color: black !important ;
+
+} */
+
+.panelcard .slds-card__header{
+   padding-top : 0px !important;
+   margin : 0px !important;
+}
+
+.panelcard .slds-card__body{
+   margin-top : 0px !important;
+   margin-bottom : 5px !important;
+}
+
+
+.values{
+    font-size: 14px !important;
+    color: #181818 !important;
+}
+
+.field-title{
+
+    color: #444444 !important;
+    font-size: 12px !important;
+}
+
+.header{
+    display: flex !important;
+    justify-content: space-between !important;
+    background-color: #f3f3f3 !important;
+    padding-top: 13px !important;
+    padding-bottom: 17px !important;
+    padding-right: 15px !important;
+}
+
+.leftcont{
+    display: flex !important;
+    align-items: flex-start !important;
+}
+
+.leftcont p {
+    font-size: 12px !important;
+
+}
+
+
+.header lightning-icon{
+ 
+    margin: 0 10px 0 15px !important;
+}
+
+.delete-modal-body{
+
+    display: flex;
+    justify-content: center;
+}
+
+.footer-sec{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.edit-modal .slds-modal__container{
+    max-width: none !important;
+} 
+
+.edit-modal .slds-form-element_stacked{
+    width: unset !important;
+}
+
+.clone-modal .slds-modal__container{
+    max-width: none !important;
+} 
+
+.clone-modal .slds-form-element_stacked{
+    width: unset !important;
+}

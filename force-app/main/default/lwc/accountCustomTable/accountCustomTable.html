@@ -1,0 +1,134 @@
+<template>
+    
+        <lightning-card  variant="Narrow"  title="Account List " icon-name="standard:account">
+
+            <div class="searchbar slds-m-bottom_large slds-m-horizontal_small" >
+                <lightning-combobox
+                    name="Type"
+                    label="Filter"
+                    value={typeValue}
+                    placeholder="Filter by Account Type"
+                    options={fieldOptions}
+                    onchange={filterChange} >
+                </lightning-combobox>
+
+            </div>
+            
+
+             <!--Contact List table starts-->
+
+        <template if:true={renderTable}>
+            <div class="tableDiv slds-m-horizontal_small">
+                <div class="[default] [small size override] [medium size override] [large size override]" >
+                    
+                    <table aria-describedby="conatact-list" class="slds-table  slds-table_bordered slds-scrollable">
+
+                        <!--Header of the table-->
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="slds-size_1-of-8 " scope="col">
+                                    <div class="slds-truncate " title="AccountName">Account Name</div>
+                                </th>
+                                <th class="slds-size_1-of-8 " scope="col">
+                                    <div class="slds-truncate " title="Phone">Phone</div>
+                                </th>
+                                <th class="slds-size_1-of-8 " scope="col">
+                                    <div class="slds-truncate " title="Type">Type</div>
+                                </th>
+                                <th class="slds-size_1-of-8" scope="col">
+                                    <div class="slds-truncate " title="CustomerPriority">Customer Priority
+                                    </div>
+                                </th>
+                                <th class="slds-size_1-of-8" scope="col">
+                                    <div class="slds-truncate " title="AccountNumber">Account Number
+                                    </div>
+                                </th>
+                                <th class="slds-size_1-of-8" scope="col">
+                                    <div class="slds-truncate " title="NumberofLocations">Number of Locations</div>
+                                </th>
+                                 <th class="slds-size_1-of-8" scope="col">
+                                    <div class="slds-truncate " title="Rating">Rating</div>
+                                </th>
+                                 <th class="slds-size_1-of-8" scope="col">
+                                    <div class="slds-truncate " title="SLA">SLA</div>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <!--Body of the table-->
+                        <tbody class="slds-p-right_medium slds-p-left_medium">
+                            <template for:each={data} for:item="item" >
+                                <tr key={item.Id} class="slds-hint-parent">
+                                    <td class="slds-size_1-of-8">
+                                        <div>
+                                            {item.Name}
+                                        </div>
+                                    </td>
+                                    <td class="slds-size_1-of-8">
+                                        <div>
+                                            {item.Phone}
+                                        </div>
+                                    </td>
+                                    <td class="slds-size_1-of-8">
+                                        <div>
+                                            {item.Type}
+                                        </div>
+                                    </td>
+                                    <td class="slds-size_1-of-8">
+                                        <div>
+                                            {item.CustomerPriority__c}
+                                        </div>
+                                    </td>
+                                    <td class="slds-size_1-of-8">
+                                        <div>
+                                            {item.AccountNumber}
+                                        </div>
+                                    </td>
+                                     <td class="slds-size_1-of-8">
+                                        <div>
+                                            {item.NumberofLocations__c}
+                                        </div>
+                                    </td>
+                                     <td class="slds-size_1-of-8">
+                                        <div>
+                                            {item.Rating}
+                                        </div>
+                                    </td>
+                                    <td class="slds-size_1-of-8">
+                                        <div>
+                                            {item.SLA__c}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </template>
+
+        <lightning-layout horizontal-align="space" class="slds-m-top_medium">
+                <lightning-layout-item flexibility="auto">
+
+                    <lightning-button class="slds-m-right_large" label="First Page" icon-name="utility:arrow_left" onclick={firstHandler}>
+                    </lightning-button>
+
+                    <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler}>
+                    </lightning-button>
+                </lightning-layout-item>
+                <lightning-layout-item flexibility="auto" class="para">
+                    Page {page} of {totalPage} - {pageLastRecord} records out of {totalRecountCount}
+                </lightning-layout-item>
+                <lightning-layout-item flexibility="auto">
+                    <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right"
+                        onclick={nextHandler}></lightning-button>
+
+                        <lightning-button class="slds-m-left_large" label="Last Page" icon-name="utility:arrow_right" icon-position="right" onclick={LastHandler}>
+                    </lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+           
+        </lightning-card>
+    
+</template>

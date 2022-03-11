@@ -1,0 +1,15 @@
+.card_wrapper{
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+}
+
+.col_heading{
+    padding: 0.5rem 0.25rem;
+    font-size: 14px;
+    background-color: #005fb2;
+    color: white;
+    margin-bottom: 1rem;
+}
+

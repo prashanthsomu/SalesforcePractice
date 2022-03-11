@@ -1,0 +1,25 @@
+<template>
+    <lightning-card  variant="Narrow"  title="I am Listening" icon-name="standard:account">
+        <div class="slds-var-m-around_medium">
+          
+                    <div style="height: 300px;">
+                            <lightning-datatable
+                                        key-field="Id"
+                                        data={accounts.data} 
+                                        columns={columns} 
+                                        onsave={handleSave}
+                                        draft-values={draftValues}
+                                        onrowselection={selectedRow}
+                                        >
+                            </lightning-datatable>
+                    </div>
+       </div>
+
+       <c-child addaccount = {addacc}></c-child>
+
+       <!-- Count of Clicks : {count}
+          <c-child onincreasecount={increaseCount}></c-child> -->
+		  
+
+    </lightning-card>
+</template>
