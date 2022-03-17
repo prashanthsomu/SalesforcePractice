@@ -82,7 +82,6 @@
     </div>
 
 
-
     <!--Delete-modal-popup -->
 
     <template if:true={triggerDeleteModal}>
@@ -118,7 +117,7 @@
     <!-- clone-modal-popup -->
 
     <div class="clone-modal">
-
+ 
         <template if:true={triggerCloneModal}>
         <!-- Modal/Popup Box LWC starts here -->
             <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
@@ -140,8 +139,8 @@
                             onsuccess={cloneSuccess}>
                             <lightning-messages data-id="message"></lightning-messages>
                                 <div class="slds-grid slds-wrap">
-                                       <template if:true={recData}>
-                                            <template for:each={recDataKey} for:item="fields">
+                                       <template if:true={cData}>
+                                            <template for:each={cDataKey} for:item="fields">
                                                     <div key={fields.Id} class="slds-col slds-size_1-of-2">
                                                         <lightning-input-field  class="slds-m-left_large slds-m-right_large edit-inputs" field-name={fields} onchange={cloneChangeHandler} name={fields}></lightning-input-field>
                                                     </div>
@@ -184,79 +183,3 @@
       
 </template>
 
-
-
-
-
-
-
-
-
-
-
-
-     <!-- Edit-modal-popup -->
-<!-- 
-    <div class="edit-modal"> 
-
-        <template if:true={triggerEditModal}> -->
-        <!-- Modal/Popup Box LWC starts here -->
-            <!-- <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
-                <div class="slds-modal__container"> -->
-                    <!-- Modal/Popup Box LWC header here -->
-                    <!-- <header class="slds-modal__header">
-                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeEditModal}>
-                            <lightning-icon icon-name="utility:close"
-                                alternative-text="close"
-                                variant="inverse"
-                                size="small" ></lightning-icon>
-                            <span class="slds-assistive-text">Close</span>
-                        </button> -->
-                        <!-- <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Edit {caseNumber}</h2>
-                    </header> -->
-                    <!-- Modal/Popup Box LWC body starts here -->
-                    <!-- <div class="slds-modal__content slds-p-around_medium edit-modal-body" id="modal-content-id-2">
-                        <lightning-record-edit-form record-id={recordId} object-api-name={objectApiName} 
-                            onsuccess={handleSuccess}>
-                            <lightning-messages data-id="message"></lightning-messages>
-                                <div class="slds-grid slds-wrap">
-                                        <template if:true={fieldSetArr}>
-                                            <template for:each={fieldSetArr} for:item="fields">
-                                                    <div key={fields.Id} class="slds-col slds-size_1-of-2">
-                                                        <lightning-input-field  class="slds-m-left_large slds-m-right_large edit-inputs" field-name={fields} onchange={changeHandler} name={fields}></lightning-input-field>
-                                                    </div>
-                                                </template>
-                                        </template>
-                                </div>
-                        </lightning-record-edit-form>
-                    </div> -->
-                    <!-- Modal/Popup Box LWC footer starts here -->
-                    <!-- <footer class="slds-modal__footer">
-                        <div class="footer-sec">
-
-                            <div class="footer-left">
-                                <lightning-checkbox-group 
-                                label=""
-                                options={options}
-                                value={value}
-                                onchange={checkboxSelection}></lightning-checkbox-group>
-                            </div>
-
-                            <div class="footer-right">
-
-                                <button class="slds-button slds-button_neutral" onclick={closeEditModal} title="Cancel">Cancel</button>
-                                <button class="slds-button slds-button_neutral" onclick={SaveEditModal} title="save-new">Save & New</button>
-                                <button class="slds-button slds-button_brand" onclick={handleSuccess} title="Save">Save</button>
-
-                            </div>
-
-                        </div>
-
-                    
-                    </footer>
-                </div>
-            </section>
-            <div class="slds-backdrop slds-backdrop_open"></div>
-        </template>
-
-    </div> -->

@@ -1,19 +1,39 @@
 public with sharing class caseClass {
 
-
-
-    @AuraEnabled(cacheable=true)
-    public static Case fetchCase(String recordId){
-    return [SELECT Id,Type,Status,Reason,Origin,Subject,Priority,Description,SlaStartDate,PotentialLiability__c,Product__c,Case_reason__c,CaseNumber,AccountId,ContactId FROM Case where Id=:recordId LIMIT 1];
+    @AuraEnabled(cacheable =true)
+    public static Case cloneCase(string recordId){
+        Case caseRecord = new Case();
+        String query = 'SELECT ';
+        for(Schema.FieldSetMember f : SObjectType.Case.FieldSets.recordAFields.getFields()) {
+            query += f.getFieldPath() + ', ';
+        }
+        query += 'Description FROM Case ' + 'WHERE Id =:recordId';   
+        caseRecord = Database.query(query);
+        System.debug(caseRecord);
+        return caseRecord;
     }
 
 
-        @AuraEnabled
-        public static Case cloneCaseRecord(Case clonecase){
-        Case newCase = clonecase.clone(false,true,false,false);
+    @AuraEnabled
+    public static Case cloneCaseRecord(Case clonecase){
+        Case newCase = clonecase.clone(false,true,false,false); //clone(preserveId, isDeepClone, preserveReadonlyTimestamps, preserveAutonumber)
         insert newCase;
         return newCase;
     }
+
+}
+
+
+
+
+
+    // @AuraEnabled(cacheable=true)
+    // public static Case fetchCase(String recordId){
+    // return [SELECT Id,Type,Status,Reason,Origin,Subject,Priority,Description,SlaStartDate,PotentialLiability__c,Product__c,Case_reason__c,CaseNumber,AccountId,ContactId FROM Case where Id=:recordId LIMIT 1];
+    // }
+
+
+
 
     //     @AuraEnabled(cacheable = true)
     //     public static List<string> getFields(String selectedObject){
@@ -102,7 +122,7 @@ public with sharing class caseClass {
     //     return sObjectDetailsList;
     // }
 
-}
+
  
 
 // @AuraEnabled
@@ -120,25 +140,6 @@ public with sharing class caseClass {
 // }
 
 
-
-
-
-
-
-
-
-
-//     @AuraEnabled
-//     public static Case cloneCase(string recordId){
-//     try{
-//     List<Case> caseRecord = new List<Case>();
-//     Case clonedCase = new Case();
-//     String query = 'SELECT ';
-//     for(Schema.FieldSetMember f : SObjectType.Case.FieldSets.recordAFields.getFields()) {
-//         query += f.getFieldPath() + ', ';
-//     }
-//     query += 'Description FROM Case ' + 'WHERE Id =:recordId';   
-//     caseRecord = Database.query(query);
 //    for (Case caseToBeClone : caseRecord ) {
 //        clonedCase = caseToBeClone.clone(false,true,false,false);
 //    }
@@ -148,23 +149,7 @@ public with sharing class caseClass {
 //     catch(Exception ex ){
 //          throw new AuraHandledException(ex.getMessage());
 //     }
-
-
-
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     // // to get fieldset list created on admin side

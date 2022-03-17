@@ -1,13 +1,12 @@
 import { LightningElement, api, wire, track } from 'lwc';
-import fetchCase from '@salesforce/apex/caseClass.fetchCase';
+// import fetchCase from '@salesforce/apex/caseClass.fetchCase';
+import cloneCase from '@salesforce/apex/caseClass.cloneCase';
 import cloneCaseRecord from '@salesforce/apex/caseClass.cloneCaseRecord';
-
 
 import { getRecord, getFieldValue, deleteRecord} from 'lightning/uiRecordApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
-
 
 import { loadStyle } from 'lightning/platformResourceLoader';
 import STYLE_CSS from '@salesforce/resourceUrl/stylepanel';
@@ -18,9 +17,6 @@ import PARENT_CONTACT from '@salesforce/schema/Case.Contact.Name';
 import PRIORITY from '@salesforce/schema/Case.Priority'; 
 import CASE_NUMBER from '@salesforce/schema/Case.CaseNumber'; 
 import STATUS from '@salesforce/schema/Case.Status'; 
-
-
-
 
 export default class HighlightPanel extends NavigationMixin(LightningElement) {
 
@@ -50,19 +46,32 @@ export default class HighlightPanel extends NavigationMixin(LightningElement) {
     @api objectFieldsArr = [];
     objectFields = {};
     recDataKey = [];
+    cDataKey = [];
+    cData;
     
     
-    // fetches a contact record from Apex
-    @wire (fetchCase,{recordId : '$recordId'})
-    fetchedCase({error, data}){
-        if (data) {
-            this.recData = data;
-            this.recDataKey = Object.keys(data);
-            this.caseRecord = JSON.stringify(data);
-            console.log(this.caseRecord);
-            console.log(data);
-        }
+    // fetches a case record from Apex static query
+    // @wire (fetchCase,{recordId : '$recordId'})
+    // fetchedCase({error, data}){
+    //     if (data) {
+    //         this.recData = data;
+    //         this.recDataKey = Object.keys(data);
+    //         this.caseRecord = JSON.stringify(data);
+    //         console.log(this.caseRecord);
+    //         console.log('olddata',data);
+    //     }
         
+    // }
+
+    // fetch recod using dynamic query and fieldsets
+    
+    @wire(cloneCase, { recordId: '$recordId' })
+    cloneCase({error, data}){
+        if (data) {
+            this.cData = data;
+            this.cDataKey = Object.keys(data);
+            console.log('clonedcase',data);
+        }
     }
 
 
@@ -186,12 +195,26 @@ export default class HighlightPanel extends NavigationMixin(LightningElement) {
         let value = event.target.value;
         Object.assign(this.dummyCloneObject, { [`${name}`]: value });
         console.log(this.dummyCloneObject); 
+        
+        // let casess = { 'sobjectType': 'Case' };
+        // let key = [`${name}`];
+        // casess[key] = value;
+        // console.log('cases',casess);
     }
 
     cloneSuccess() {  
-        const allobj = Object.assign({}, this.recData, this.dummyCloneObject);
+        const allobj = Object.assign({}, this.cData, this.dummyCloneObject);
         delete allobj.Id;
+        allobj.sobjectType = 'Case'; 
         console.log('allob', allobj);
+
+        // let cases = { 'sobjectType': 'Case' };
+        // cases.Type = 'Mechanical';
+        // cases.Case_reason__c = 'reason 2';
+        // cases.Origin = 'Web';
+        // cases.Status = 'New'
+        // console.log('cases', cases);
+        
         cloneCaseRecord({ clonecase: allobj }) //apex class to clone record
         .then(result => {
                console.log(result);
@@ -206,11 +229,25 @@ export default class HighlightPanel extends NavigationMixin(LightningElement) {
             this.error = error;
         });
         this.dummyCloneObject = {};
-        allobj = {}; 
+        allobj = {};
+
+        // cloneCaseRecord({clonecase: cases})
+        // .then(result => {
+        //     this.recordId = result;
+        //     console.log(result);
+        // })
+        // .catch(error => {
+        //     console.log(error);
+        //     this.error = error;
+        // });
+
+
+        
     }
 
 
     SaveCloneModal() {
+
         const allobj = Object.assign({}, this.recData, this.dummyCloneObject);
         delete allobj.Id;
         console.log('allob', allobj);
@@ -222,6 +259,9 @@ export default class HighlightPanel extends NavigationMixin(LightningElement) {
                    message: 'Case was created' ,
                    variant: 'success'
                }));
+
+                this.triggerCloneModal = false;
+
                 this[NavigationMixin.Navigate]({
                     type: 'standard__objectPage',
                     attributes: {
@@ -236,6 +276,8 @@ export default class HighlightPanel extends NavigationMixin(LightningElement) {
         });
           this.dummyCloneObject = {};
           allobj = {};
+        
+        
     }
    
 

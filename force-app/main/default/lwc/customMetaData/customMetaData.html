@@ -1,0 +1,28 @@
+<template>
+    <lightning-card class="slds-p-around_medium" variant="Narrow"  title="Create Account" icon-name="standard:account">
+
+         <lightning-record-edit-form 
+                                object-api-name={objectName}
+                                onsuccess={saverecord}>
+        <lightning-messages></lightning-messages>
+       
+            <template for:each={fields} for:item="field">
+                
+                    <lightning-input-field key={field} class="slds-m-left_large slds-m-right_large edit-inputs" field-name= {field}></lightning-input-field>
+                
+            </template>
+
+                <div class="btn">
+                <lightning-button variant = "brand" type="submit" label={buttonlabel}></lightning-button>
+                </div>
+    </lightning-record-edit-form>
+            
+        
+        
+        
+        
+    </lightning-card>
+
+   
+    
+</template>

@@ -1,0 +1,9 @@
+lightning-input-field{
+    width: 95% !important;
+    margin: 10px 20px !important ;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+}
